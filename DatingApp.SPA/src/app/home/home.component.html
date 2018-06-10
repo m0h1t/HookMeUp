@@ -1,0 +1,13 @@
+<div *ngIf="!registerMode" class="container d-flex w-10 h-100 p-5 mx-auto flex-column text-center">
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">You can do better.</h1>
+      <p class="lead">Because life is more than just sitting around and playing video games. We care about you and your future. Come in to view your matches. All you need to do is sign up!</p>
+      <p class="lead">
+        <a href="#" class="btn btn-lg btn-secondary" (click)="toggleRegister()">Register</a>
+      </p>
+  </main>
+</div>
+
+<div *ngIf="registerMode" class="container">
+  <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+</div>

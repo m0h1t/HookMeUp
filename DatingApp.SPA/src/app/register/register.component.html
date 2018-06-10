@@ -1,0 +1,19 @@
+
+  <form  #registerForm='ngForm' (ngSubmit)="register()" class="d-flex w-10 h-100 p-5 mx-auto flex-column text-center form-signin">
+      <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Get started. Sign up below</h1>
+      </div>
+
+      <div class="form-label-group mb-2">
+        <input type="email" id="inputUsername" name="Username" [(ngModel)]="model.Username" class="form-control" placeholder="Username" required="" autofocus="">
+      </div>
+
+      <div class="form-label-group mb-2 ">
+        <input type="password" id="inputPassword" name="Password" [(ngModel)]="model.Password" class="form-control" placeholder="Password" required="">
+      </div>
+
+      <div>
+          <button class="btn btn-lg btn-primary" type="submit">Sign up</button>
+          <button class="btn btn-lg btn-danger" type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
