@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Hook-Me-Up</a>
+  <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active" >Hook-Me-Up</a>
 
   <div class="collapse navbar-collapse" id="navbar" >
     <ul class="navbar-nav mr-auto" *ngIf="loggedIn()">
-      <li class="nav-item"><a class="nav-link" href="#">Matches</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Lists</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Messages</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="['/members']" routerLinkActive="router-link-active" >Matches</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="['/lists']" routerLinkActive="router-link-active" >Lists</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active" >Messages</a></li>
     </ul>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-right">
       <li class="nav-item dropdown" dropdown>
         <a class="nav-link dropdown-toggle" id="dropdown01" dropdownToggle>Welcome {{authService.decodedToken?.unique_name | titlecase}}</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01" *dropdownMenu>
-          <a class="dropdown-item" href="#">Edit profile</a>
+          <a class="dropdown-item" >Edit profile</a>
           <a class="dropdown-item" (click)="logout()">Logout</a>
         </div>
       </li>
