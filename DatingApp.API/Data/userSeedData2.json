@@ -1,0 +1,22 @@
+[
+    {
+        "Username": "Mohit",
+        "Gender": "male",
+        "DateOfBirth": "1990-06-28",
+        "Password": "password",
+        "KnownAs": "Mohit",
+        "Created": "2018-06-02",
+        "Introduction": "Esse enim reprehenderit amet sint. Lorem qui sit incididunt sunt sit mollit laboris ad labore. Proident labore nostrud commodo tempor deserunt occaecat reprehenderit amet consequat labore. Magna velit esse ex aute cupidatat aute voluptate nisi id dolore elit dolore. Consectetur tempor aliquip officia ullamco ad ut qui aliqua.\r\n",
+        "LookingFor": "Laborum consequat quis qui qui laboris minim ipsum minim qui et Lorem sint voluptate. Consectetur et eu elit duis ea ut pariatur qui nulla proident officia nostrud anim. Ullamco elit proident aliqua mollit incididunt consectetur ullamco aliqua irure nisi. Do labore commodo ex fugiat adipisicing nisi sit.\r\n",
+        "Interests": "Anim quis nostrud ad non cupidatat quis sit officia irure anim voluptate.",
+        "City": "Pune",
+        "Country": "India",
+        "Photos": [
+          {
+            "url": "https://randomuser.me/api/portraits/men/22.jpg",
+            "isMain": true,
+            "description": "Anim sunt irure ullamco anim in in ea duis ipsum enim consequat."
+          }
+        ]
+      }
+]
