@@ -25,6 +25,10 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    updateUser(id: number, user: User): Observable<User> {
+        return this.authHttp.put(this.baseURL + 'users/' + id, user).catch(this.handleError);
+    }
+
     private handleError(error: any) {
         const applicationError = error.headers.get('Application-Error');
         if (applicationError) {
