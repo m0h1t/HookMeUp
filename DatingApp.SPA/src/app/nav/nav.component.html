@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
   <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active" >Hook-Me-Up</a>
 
   <div class="collapse navbar-collapse" id="navbar" >
@@ -9,6 +9,9 @@
     </ul>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-right">
+      <li>
+        <img src="{{photoUrl}}" alt="">
+      </li>
       <li class="nav-item dropdown" dropdown>
         <a class="nav-link dropdown-toggle" id="dropdown01" dropdownToggle>Welcome {{authService.decodedToken?.unique_name | titlecase}}</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01" *dropdownMenu>

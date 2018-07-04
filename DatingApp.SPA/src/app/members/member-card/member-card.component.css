@@ -14,11 +14,11 @@ h6 {
     margin-bottom: 1px;
 }
 
-h6 small {
+/* h6 small {
     font-weight: bold;
     font-size: 12px;
     font-style: italic;
-}
+} */
 
 img {
     transform: scale(1, 1);
