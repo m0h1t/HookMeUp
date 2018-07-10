@@ -11,6 +11,7 @@ import { User } from './models/User';
 export class AppComponent implements OnInit  {
   title = 'Hook-Me-Up';
   jwtHelper: JwtHelper = new JwtHelper();
+  defaultPhotoUrl = '../assets/user.png';
 
   constructor(private authService: AuthService) {}
 
@@ -22,7 +23,11 @@ export class AppComponent implements OnInit  {
     }
     if (user) {
       this.authService.currentUser = user;
-      this.authService.changeMemberPhoto(user.photoURL);
+      if (this.authService.currentUser != null) {
+        this.authService.changeMemberPhoto(user.photoURL);
+      } else {
+        this.authService.changeMemberPhoto(this.defaultPhotoUrl);
+      }
     }
   }
 }

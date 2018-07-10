@@ -11,11 +11,12 @@ import { User } from '../models/User';
 @Injectable()
 export class AuthService {
     baseURL = 'http://localhost:5000/api/auth/';
+    defaultPhotoUrl = '../../assets/user.png';
     userToken: any;
     decodedToken: any;
     jwtHelper: JwtHelper = new JwtHelper();
     currentUser: User;
-    private photoUrl = new BehaviorSubject<string>('../../assets/user.png');
+    private photoUrl = new BehaviorSubject<string>(this.defaultPhotoUrl);
     currentPhotoUrl = this.photoUrl.asObservable();
 
     constructor(private http: Http) { }
@@ -34,13 +35,17 @@ export class AuthService {
                 this.decodedToken = this.jwtHelper.decodeToken(this.userToken);
                 this.currentUser = user.user;
                 console.log(this.decodedToken);
-                this.changeMemberPhoto(this.currentUser.photoURL);
+                if (this.currentUser.photoURL != null) {
+                    this.changeMemberPhoto(this.currentUser.photoURL);
+                } else {
+                    this.changeMemberPhoto(this.defaultPhotoUrl);
+                }
             }
         }).catch(this.handleError);
     }
 
-    register(model: any) {
-        return this.http.post(this.baseURL + 'register', model, this.requestOptions()).catch(this.handleError);
+    register(user: User) {
+        return this.http.post(this.baseURL + 'register', user, this.requestOptions()).catch(this.handleError);
     }
 
     loggedIn() {

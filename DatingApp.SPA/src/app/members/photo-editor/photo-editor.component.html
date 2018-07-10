@@ -3,9 +3,9 @@
     <img src="{{photo.url}}" alt="{{photo.description}}" class="img-thumbnail">
     <div class="btn-group btn-group-sm">
         <button class="btn btn-xs btn-primary" 
-        (click)="setMainPhoto(photo)"
-        [disabled]="photo.isMain"
-        [ngClass]="photo.isMain ? 'btn-success' : 'btn-default'">Main</button>
+            (click)="setMainPhoto(photo)"
+            [disabled]="photo.isMain"
+            [ngClass]="photo.isMain ? 'btn-success' : 'btn-default'">Main</button>
         <button class="btn btn-xs btn-danger" (click)="deletePhoto(photo.id)" [disabled]="photo.isMain"><i class="fa fa-trash-o"></i></button>
     </div>
   </div>

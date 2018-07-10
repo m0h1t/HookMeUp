@@ -3,6 +3,7 @@ import { Resolve, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@a
 import { UserService } from '../services/user.service';
 import { AlertifyService } from '../services/alertify.service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 
 @Injectable()

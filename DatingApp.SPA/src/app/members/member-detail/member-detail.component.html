@@ -8,7 +8,7 @@
         <!-- <div class="card-header border-0 m-0">
             <img src="{{user?.photoURL}}" alt="{{user?.knownAs}}" class="img-thumbnail">
         </div>       -->
-        <img src="{{user?.photoURL}}" alt="{{user?.knownAs}}" class="card-img-top img-fluid img-thumbnail">
+        <img src="{{user.photoURL ? user.photoURL: '../../../assets/user.png' }}" alt="{{user?.knownAs}}" class="card-img-top img-fluid img-thumbnail">
         <div class="card-body" style="padding-bottom: 0rem;">
           <div>
             <strong>Location: </strong>

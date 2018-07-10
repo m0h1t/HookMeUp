@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { AlertifyService } from '../services/alertify.service';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 
 @Injectable()
