@@ -7,11 +7,13 @@ using DatingApp.API.Dtos;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System;
+using DatingApp.API.Helpers;
 
 namespace DatingApp.API.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [ServiceFilter(typeof(LogUserActivity))]
     public class UsersController : Controller
     {
         private readonly IDatingRepository _repo;
@@ -24,10 +26,25 @@ namespace DatingApp.API.Controllers
 
         // api/users //GET
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers(UserParams userParams)
         {
-            var users = await _repo.GetUsers();
+            var currentUser = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var userFromRepo = await _repo.GetUser(currentUser);
+
+            userParams.UserId = currentUser;
+
+            if(string.IsNullOrEmpty(userParams.Gender))
+            {
+                userParams.Gender = userFromRepo.Gender == "male" ? "female" : "male";
+            }
+
+            var users = await _repo.GetUsers(userParams);
+
             var usersForReturn = _mapper.Map<IEnumerable<UsersForListDto>>(users);
+
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+
             return Ok(usersForReturn);
         }
 
