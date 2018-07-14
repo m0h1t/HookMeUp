@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private alertify: AlertifyService,
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private router: Router
   ) {}
 
