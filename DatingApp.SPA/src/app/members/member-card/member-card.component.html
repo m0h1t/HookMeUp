@@ -4,11 +4,37 @@
       <ul class="list-inline member-icons animate text-center nav nav-bar">
         <li><button class="btn btn-primary" [routerLink]="['/members', user.id]" routerLinkActive="router-link-active" ><i class="fa fa-user"></i></button></li>
         <li><button class="btn btn-primary" (click)="sendLike(user.id)"><i class="fa fa-heart"></i></button></li>
-        <li><button class="btn btn-primary"><i class="fa fa-envelope"></i></button></li>
+        <li><button class="btn btn-primary" [routerLink]="['/members', user.id]" [queryParams]="{tab:'3'}"><i class="fa fa-envelope"></i></button></li>
       </ul>
   </div>
   <div class="card-body text-center">
     <h6 class="card-title"><i class="fa fa-user"></i> {{user.knownAs}}, {{user.age}}</h6>
     <h6 class="text-muted"><small>{{user.city}}</small></h6>
+  </div>
+</div>
+
+
+<div class="col-20">
+  <div class="card border-blue border-lighten-2">
+    <div class="text-center">
+      <div class="card-body">
+        <img src="{{user.photoURL}}" class="rounded-circle  height-150" alt="Card image">
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">{{user.knownAs + ', ' + user.age}}</h4>
+        <h6 class="card-subtitle text-muted">{{user.city + ', ' + user.country}}</h6>
+      </div>
+      <div class="text-center">
+        <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-outline-facebook">
+          <span class="fa fa-facebook"></span>
+        </a>
+        <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-outline-twitter">
+          <span class="fa fa-twitter"></span>
+        </a>
+        <a href="#" class="btn btn-social-icon mb-1 btn-outline-linkedin">
+          <span class="fa fa-linkedin font-medium-4"></span>
+        </a>
+      </div>
+    </div>
   </div>
 </div>

@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import { User } from '../models/User';
 import { AuthHttp } from 'angular2-jwt';
 import { PaginatedResult } from '../models/Pagination';
+import { Message } from '../models/Message';
 
 @Injectable()
 export class UserService {
@@ -68,6 +69,45 @@ export class UserService {
 
     sendLike(id: number, recipientId: number) {
         return this.authHttp.post(this.baseURL + 'users/' + id + '/like/' + recipientId, {}).catch(this.handleError);
+    }
+
+    getMessages(id: number, page?: number, itemsPerPage?: number, messageContainer?: string) {
+        const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+
+        let queryString = '?MessageContainer=' + messageContainer;
+
+        if (page != null && itemsPerPage != null) {
+            queryString += '&pageNumber=' + page + '&itemsPerPage=' + itemsPerPage;
+        }
+        return this.authHttp.get(this.baseURL + 'users/' + id + '/messages' + queryString)
+            .map((response: Response) => {
+                paginatedResult.result = response.json();
+                if (response.headers.get('Pagination') != null) {
+                    paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+                }
+                return paginatedResult;
+            }).catch(this.handleError);
+
+    }
+
+    getMessagesThread(id: number, recipientId: number) {
+        return this.authHttp.get(this.baseURL + 'users/' + id + '/messages/thread/' + recipientId).map((response: Response) => {
+            return response.json();
+        }).catch(this.handleError);
+    }
+
+    sendMessage(id: number, message: Message) {
+      return this.authHttp.post(this.baseURL + 'users/' + id + '/messages/', message).map((response: Response) => {
+        return response.json();
+      }).catch(this.handleError);
+    }
+
+    deleteMessage(id: number, userId: number) {
+        return this.authHttp.post(this.baseURL + 'users/' + userId + '/messages/' + id, {}).map(response => {}).catch(this.handleError);
+    }
+
+    markAsRead(id: number, userId: number) {
+        this.authHttp.post(this.baseURL + 'users/' + userId + '/messages/' + id + '/read', {}).subscribe();
     }
 
     private handleError(error: any) {

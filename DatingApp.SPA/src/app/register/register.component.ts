@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AlertifyService } from '../services/alertify.service';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
-import { BsDatepickerConfig } from '../../../node_modules/ngx-bootstrap';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { User } from '../models/User';
-import { Router } from '../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',

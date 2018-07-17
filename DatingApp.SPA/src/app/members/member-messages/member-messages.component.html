@@ -1,0 +1,81 @@
+<div class="card">
+  <div class="card-body">
+    <div *ngIf="messages?.length === 0">
+      <p>No messages yet... Get talking you two!</p>
+    </div>
+
+    <ul class="chat">
+      <li *ngFor="let message of messages">
+        <!-- to them -->
+        <div *ngIf="message.senderId == userId">
+          <span class="chat-img pull-left">
+            <img src="{{message.senderPhotoUrl}}" class="rounded-circle">
+          </span>
+          <div class="chat-body">
+            <div class="header">
+              <strong class="primary-font">{{message.senderKnownAs}}</strong>
+              <small class="text-muted pull-right">
+                <span class="fa fa-clock-o">{{message.messageSent | timeAgo}}</span>
+              </small>
+            </div>
+            <p>{{message.content}}</p>
+          </div>
+        </div>
+
+
+        <!-- to me -->
+        <div *ngIf="message.senderId != userId">
+            <span class="chat-img pull-right">
+              <img src="{{message.senderPhotoUrl}}" class="rounded-circle">
+            </span>
+            <div class="chat-body">
+              <div class="header">
+                  <small class="text-muted">
+                      <span class="fa fa-clock-o">{{message.messageSent | timeAgo}}</span>
+                      <span *ngIf="!message.isRead" class="text-muted text-danger">(Unread)</span>
+                      <span *ngIf="message.isRead" class="text-muted text-success">(Read {{message.dateRead | timeAgo}})</span>
+                    </small>
+                <strong class="primary-font pull-right">{{message.senderKnownAs}}</strong>
+              </div>
+              <p>{{message.content}}</p>
+            </div>
+          </div>
+  
+      </li>
+    </ul>
+
+  </div>
+  <div class="card-footer">
+      <!-- <section class="chat-app-form">
+          <form class="chat-app-input d-flex">
+            <fieldset class="form-group position-relative has-icon-left col-10 m-0">
+              <div class="form-control-position">
+                <i class="icon-emoticon-smile"></i>
+              </div>
+              <input type="text" class="form-control" id="iconLeft4" placeholder="Type your message">
+              <div class="form-control-position control-position-right">
+                <i class="ft-image"></i>
+              </div>
+            </fieldset>
+            <fieldset class="form-group position-relative has-icon-left col-2 m-0">
+              <button type="button" class="btn btn-primary"><i class="fa fa-paper-plane-o d-lg-none"></i>
+                <span class="d-none d-lg-block">Send</span>
+              </button>
+            </fieldset>
+          </form>
+        </section> -->
+    <form #messageForm="ngForm" (ngSubmit)="messageForm.valid && sendMessage()">
+      <div class="input-group">
+        <input type="text" 
+          class="form-control input-sm" 
+          required
+          name="content"
+          [(ngModel)]="newMessage.content"
+          placeholder="Type your message">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" [disabled]="!messageForm.valid">Send</button>
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
