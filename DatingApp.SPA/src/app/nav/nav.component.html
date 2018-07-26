@@ -10,7 +10,7 @@
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-right">
       <li>
-        <img src="{{photoUrl}}" alt="">
+        <img class="rounded-circle" src="{{photoUrl}}" alt="">
       </li>
       <li class="nav-item dropdown" dropdown>
         <a class="nav-link dropdown-toggle" id="dropdown01" dropdownToggle>Welcome {{authService.decodedToken?.unique_name | titlecase}}</a>

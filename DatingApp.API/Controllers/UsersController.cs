@@ -14,11 +14,13 @@ namespace DatingApp.API.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [ApiController]
     [ServiceFilter(typeof(LogUserActivity))]
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
         private readonly IDatingRepository _repo;
         private readonly IMapper _mapper;
+
         public UsersController(IDatingRepository repo, IMapper mapper)
         {
             _mapper = mapper;
@@ -27,7 +29,7 @@ namespace DatingApp.API.Controllers
 
         // api/users //GET
         [HttpGet]
-        public async Task<IActionResult> GetUsers(UserParams userParams)
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
             var currentUser = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
@@ -113,7 +115,7 @@ namespace DatingApp.API.Controllers
             _repo.Add<Like>(like);
             if(await _repo.SaveAll())
             {
-                return Ok();
+                return Ok(new {});
             }
 
             return BadRequest("Like Failed");

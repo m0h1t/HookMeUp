@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
 import { AlertifyService } from '../../services/alertify.service';
@@ -15,6 +15,12 @@ export class MemberEditComponent implements OnInit {
   user: User;
   @ViewChild('editForm') editForm: NgForm;
   photoUrl: string;
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.editForm.dirty) {
+      $event.returnValue = true;
+    }
+  }
 
   constructor(private userService: UserService,
     private alertify: AlertifyService,

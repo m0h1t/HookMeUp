@@ -3,9 +3,9 @@ import { Resolve, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@a
 import { UserService } from '../services/user.service';
 import { AlertifyService } from '../services/alertify.service';
 import { AuthService } from '../services/auth.service';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class MemberEditResolver implements Resolve<User> {
@@ -15,11 +15,12 @@ export class MemberEditResolver implements Resolve<User> {
         private authService: AuthService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<User> {
-        return this.userService.getUser(this.authService.decodedToken.nameid).catch(error => {
+        return this.userService.getUser(this.authService.decodedToken.nameid).pipe(
+            catchError(error => {
             this.alertifyService.error('Problem retreiving data');
             this.router.navigate(['/home/']);
-            return Observable.of(null);
-        });
+            return of(null);
+        }));
 
     }
 }

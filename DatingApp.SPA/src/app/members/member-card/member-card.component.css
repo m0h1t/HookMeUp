@@ -1,3 +1,11 @@
+.card {
+    margin-bottom: 1.875rem;
+    border: none;
+    border-radius: 0;
+    -webkit-box-shadow: 0 10px 40px 0 rgba(62, 57, 107, 0.07), 0 2px 9px 0 rgba(62, 57, 107, 0.06);
+    box-shadow: 0 10px 40px 0 rgba(62, 57, 107, 0.07), 0 2px 9px 0 rgba(62, 57, 107, 0.06);
+}
+
 .card-body {
     padding: 5px;
 }
@@ -14,12 +22,6 @@ h6 {
     margin-bottom: 1px;
 }
 
-/* h6 small {
-    font-weight: bold;
-    font-size: 12px;
-    font-style: italic;
-} */
-
 img {
     transform: scale(1, 1);
     transition-duration: 500ms;
@@ -27,15 +29,9 @@ img {
 }
 
 .card:hover img {
-    transform: scale(1.2, 1.2);
     transition-duration: 500ms;
     transition-timing-function: ease-out;
-    opacity: 0.7;
-}
-
-.zoom {
-    overflow: hidden;
-    position: relative;
+    opacity: 0.8;
 }
 
 .member-icons {
@@ -55,4 +51,20 @@ img {
 
 .animate {
     transition: all 0.3s ease-in-out;
+}
+
+a {
+    color: rgb(0, 156, 220);
+    transition: all 0.3s ease-out;
+}
+
+a:hover {
+    transform: scale(1.4, 1.4);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.border-blue.border-lighten-2 {
+    border: 1px solid #64B5F6 !important;
 }

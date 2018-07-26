@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { JwtHelper } from 'angular2-jwt';
 import { User } from './models/User';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +9,15 @@ import { User } from './models/User';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit  {
-  title = 'Hook-Me-Up';
-  jwtHelper: JwtHelper = new JwtHelper();
   defaultPhotoUrl = '../assets/user.png';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private jwtHelperService: JwtHelperService) {}
 
   ngOnInit() {
     const token = localStorage.getItem('token');
     const user: User = JSON.parse(localStorage.getItem('user'));
     if (token) {
-      this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+      this.authService.decodedToken = this.jwtHelperService.decodeToken(token);
     }
     if (user) {
       this.authService.currentUser = user;

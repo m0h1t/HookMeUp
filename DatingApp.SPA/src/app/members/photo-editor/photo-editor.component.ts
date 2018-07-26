@@ -5,7 +5,6 @@ import { AuthService } from '../../services/auth.service';
 import { environment } from '../../../environments/environment';
 import { UserService } from '../../services/user.service';
 import { AlertifyService } from '../../services/alertify.service';
-import * as _ from 'underscore';
 
 @Component({
   selector: 'app-photo-editor',
@@ -15,6 +14,7 @@ import * as _ from 'underscore';
 export class PhotoEditorComponent implements OnInit {
 
   @Input() photos: Photo[];
+  @Output() getMemberPhotoChange = new EventEmitter<string>();
   public uploader: FileUploader;
   public hasBaseDropZoneOver = false;
   public baseURL = environment.apiURL;
@@ -63,7 +63,7 @@ export class PhotoEditorComponent implements OnInit {
 
   setMainPhoto(photo: Photo) {
     this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(() => {
-      this.currentMain = _.findWhere(this.photos, {isMain: true});
+      this.currentMain = this.photos.filter(p => p.isMain === true)[0];
       this.currentMain.isMain = false;
       photo.isMain = true;
       this.authService.changeMemberPhoto(photo.url);
@@ -77,7 +77,7 @@ export class PhotoEditorComponent implements OnInit {
   deletePhoto(id: number) {
     this.alertify.confirm('Are you sure you want to delete this photo??', () => {
       this.userService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(() => {
-        this.photos.splice(_.findIndex(this.photos, {id: id}), 1);
+        this.photos.splice(this.photos.findIndex(p => p.id === id));
         this.alertify.success('Photo deleted successfully');
       }, error => {
         this.alertify.error('Failed to delete photo');

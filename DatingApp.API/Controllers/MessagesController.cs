@@ -14,8 +14,9 @@ namespace DatingApp.API.Controllers
 {
     [Authorize]
     [Route("api/users/{userId}/[controller]")]
+    [ApiController]
     [ServiceFilter(typeof(LogUserActivity))]
-    public class MessagesController : Controller
+    public class MessagesController : ControllerBase
     {
         private readonly IDatingRepository _repo;
         private readonly IMapper _mapper;
@@ -26,10 +27,12 @@ namespace DatingApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMessagesForUser(int userId, MessageParams messageParams)
+        public async Task<IActionResult> GetMessagesForUser(int userId, [FromQuery]MessageParams messageParams)
         {
             if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
+
+            messageParams.UserId = userId;
 
             var messageFromRepo = await _repo.GetMessagesForUser(messageParams);
 
@@ -89,10 +92,9 @@ namespace DatingApp.API.Controllers
             var message = _mapper.Map<Message>(messageForCreationDto);
             _repo.Add(message);
 
-            var messageToReturn = _mapper.Map<MessageToReturnDto>(message);
-
             if(await _repo.SaveAll())
             {
+                var messageToReturn = _mapper.Map<MessageToReturnDto>(message);
                 return CreatedAtRoute("GetMessage", new {id = message.Id}, messageToReturn);
             }
 
@@ -137,7 +139,7 @@ namespace DatingApp.API.Controllers
             var messageFromRepo = await _repo.GetMessage(id);
 
             if(messageFromRepo.RecipientId != userId)
-                return BadRequest("Failed to mark message as read");
+                return Unauthorized();
 
             messageFromRepo.IsRead = true;
             messageFromRepo.DateRead = DateTime.Now;

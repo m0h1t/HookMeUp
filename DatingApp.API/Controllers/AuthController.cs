@@ -14,7 +14,8 @@ using AutoMapper;
 namespace DatingApp.API.Controllers
 {
     [Route("api/[controller]")]
-    public class AuthController : Controller
+    [ApiController]
+    public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
@@ -29,13 +30,10 @@ namespace DatingApp.API.Controllers
 
         // POST api/auth/register
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]UserForRegisterDto userForRegisterDto)
+        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             if (await _repo.UserExists(userForRegisterDto.Username))
                 ModelState.AddModelError("Username", "Username is already taken");
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
             if (string.IsNullOrEmpty(userForRegisterDto.Username))
                 userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
@@ -51,10 +49,8 @@ namespace DatingApp.API.Controllers
 
         // POST api/auth/login
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]UserForLoginDto userForLoginDto)
+        public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            //if(await _repo.UserExists(userForLoginDto.Username))
-            //    ModelState.AddModelError("Username", "Username is already taken");
 
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 

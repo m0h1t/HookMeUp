@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,8 +69,11 @@ namespace DatingApp.API.Data
             }
 
             if(userParams.MinAge != 18 || userParams.MaxAge != 99)
-            {
-                users= users.Where(u => u.DateOfBirth.CalculatAge() >= userParams.MinAge && u.DateOfBirth.CalculatAge() <= userParams.MaxAge);
+            {                
+                var min = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+                var max = DateTime.Today.AddYears(-userParams.MinAge);
+
+                users= users.Where(u => u.DateOfBirth >= min && u.DateOfBirth <= max);
             }
 
             if(!string.IsNullOrEmpty(userParams.OrderBy))
@@ -77,7 +81,7 @@ namespace DatingApp.API.Data
                 switch(userParams.OrderBy)
                 {
                     case "created":
-                        users = users.OrderBy(u => u.Created);
+                        users = users.OrderByDescending(u => u.Created);
                         break;
                     default:
                         users = users.OrderByDescending(u => u.LastActive);
